@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allDocs = await getCollection('docs');
+---
+
+<Layout title="Montechico | Repositorio de Investigación Premium">
+	<header class="hero">
+		<div class="bio-shape"></div>
+		<h1 class="logo">MonTECHICO</h1>
+		<p class="tagline">Arquitectura • Arte • Transdisciplinariedad</p>
+	</header>
+
+	<section class="research-grid">
+		{allDocs.map(doc => (
+			<article class="organic-card">
+				<span class="category">{doc.id.split('.')[0]}</span>
+				<h2>{doc.id}</h2>
+				<div class="excerpt">
+					<p>Investigación en desarrollo en Barichara...</p>
+				</div>
+				<a href={`/docs/${doc.slug}`} class="read-more">Explorar nodo</a>
+			</article>
+		))}
+	</section>
+
+	<style>
+		.hero {
+			padding: 8rem 0;
+			text-align: center;
+			position: relative;
+		}
+
+		.logo {
+			font-size: 5rem;
+			letter-spacing: -0.05em;
+			color: var(--color-sombra-barro);
+			margin: 0;
+			text-transform: uppercase;
+		}
+
+		.tagline {
+			font-size: 1.2rem;
+			color: var(--color-suelo-canela);
+			letter-spacing: 0.2em;
+			text-transform: uppercase;
+			margin-top: 1rem;
+		}
+
+		.bio-shape {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 300px;
+			height: 300px;
+			background-color: var(--color-tierra-pisada);
+			border-radius: var(--radius-petal);
+			z-index: -1;
+			opacity: 0.4;
+			animation: breathe 10s infinite alternate ease-in-out;
+		}
+
+		@keyframes breathe {
+			0% { border-radius: var(--radius-petal); transform: translate(-50%, -50%) scale(1); }
+			100% { border-radius: var(--radius-stone); transform: translate(-50%, -50%) scale(1.1); }
+		}
+
+		.research-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			gap: 3rem;
+			padding: 4rem 0;
+		}
+
+		.category {
+			font-size: 0.8rem;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			color: var(--color-suelo-canela);
+			display: block;
+			margin-bottom: 1rem;
+		}
+
+		.read-more {
+			display: inline-block;
+			margin-top: 2rem;
+			color: var(--color-sombra-barro);
+			text-decoration: none;
+			font-weight: 700;
+			border-bottom: 1px solid var(--color-suelo-canela);
+			transition: all 0.3s ease;
+		}
+
+		.read-more:hover {
+			border-bottom-width: 3px;
+			letter-spacing: 0.05em;
+		}
+	</style>
+</Layout>
