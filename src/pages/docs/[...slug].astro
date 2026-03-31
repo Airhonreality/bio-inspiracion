@@ -16,7 +16,7 @@ const { Content } = await entry.render();
 <Layout title={`${entry.id} | Semillero`}>
 	<article class="doc-container">
 		<header class="doc-header">
-			<a href="/" class="back-link">← Volver al mapa</a>
+			<a href={import.meta.env.BASE_URL} class="back-link">← Volver al mapa</a>
 			<div class="category-chip">{entry.id.split('.')[0]}</div>
 			<h1>{entry.id}</h1>
 		</header>
